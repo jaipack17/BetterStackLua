@@ -1,7 +1,7 @@
 # Better Stack
 This is a module created in Lua for Roblox Studio. It expands the limits of a regular lua stack which has more than 20 functions to use. New Functions are added frequently
 
-Find the Developer Forum Post and the Documentation here - 
+Find the Developer Forum Post and the Documentation here - https://devforum.roblox.com/t/the-module-better-stack/997414
 
 Get the Module - https://www.roblox.com/library/6278164194/Better-Stack
 
