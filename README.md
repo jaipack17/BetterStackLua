@@ -3,6 +3,6 @@ This is a module created in Lua for Roblox Studio. It expands the limits of a re
 
 Find the Developer Forum Post and the Documentation here - 
 
-Get the Module - 
+Get the Module - https://www.roblox.com/library/6278164194/Better-Stack
 
 Thanks! Hope it helps you!
