@@ -1,12 +1,17 @@
-BetterStack = {}
+local BetterStack = {}
 BetterStack.__index = BetterStack
-function BetterStack.new() return setmetatable({}, BetterStack) end
 
-function BetterStack:push(element)
+type BetterStack = { any }
+
+function BetterStack.new(): BetterStack
+	return setmetatable({}, BetterStack)
+end
+
+function BetterStack:push(element: any)
 	self[#self+1] = element
 end
 
-function BetterStack:pushMany(...)
+function BetterStack:pushMany(...): BetterStack
 	local args = #{...}
 	local arr = {...}
 	for i = 1, args do
@@ -15,33 +20,30 @@ function BetterStack:pushMany(...)
 	return self
 end
 
-function BetterStack:pop()
+function BetterStack:pop(): any
 	assert(#self > 0, "Attempt to pop value from empty stack!")
 	local output = self[#self]
 	self[#self] = nil
 	return output
 end
 
-function BetterStack:top()
+function BetterStack:top(): any
 	assert(#self > 0, "Attempt to use top() on an empty stack!")
-	local output = self[#self]
-	return output
+	return self[#self]
 end
 
-function BetterStack:bottom()
+function BetterStack:bottom(): any
 	assert(#self > 0, "Attempt to use bottom() on an empty stack!")
-	local output = self[1]
-	return output
+	return self[1]
 end
 
-function BetterStack:clone()
-	local a = self
-	return a
+function BetterStack:clone(): BetterStack
+	return table.move(self, 1, #self, 1, table.create(#self))
 end
 
-function BetterStack:bomb()
-	local a = {}
-	return a
+function BetterStack:bomb(): BetterStack
+	table.clear(self)
+	return self
 end
 
 function BetterStack:size()
