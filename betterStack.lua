@@ -33,15 +33,11 @@ function BetterStack:bottom()
 	local output = self[1]
 	return output
 end
-
-function BetterStack:clone()
-	local a = self
-	return a
-end
-
 function BetterStack:bomb()
-	local a = {}
-	return a
+	for i in pairs (self) do
+		self [i] = nil
+	end
+	return self
 end
 
 function BetterStack:size()
@@ -119,9 +115,6 @@ function BetterStack:average()
 		sum = sum + self[i]
 	end
 	return sum/#self
-end
-function BetterStack:sortStack()
-	
 end
 function BetterStack:mid()
 	local a = self[#self/2]
