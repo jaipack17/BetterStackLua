@@ -34,9 +34,7 @@ function BetterStack:bottom()
 	return output
 end
 function BetterStack:bomb()
-	for i in pairs (self) do
-		self [i] = nil
-	end
+	self = {}
 	return self
 end
 
