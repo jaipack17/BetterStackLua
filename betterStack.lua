@@ -1,12 +1,17 @@
-BetterStack = {}
+local BetterStack = {}
 BetterStack.__index = BetterStack
-function BetterStack.new() return setmetatable({}, BetterStack) end
 
-function BetterStack:push(element)
+type BetterStack = { any }
+
+function BetterStack.new(): BetterStack
+	return setmetatable({}, BetterStack)
+end
+
+function BetterStack:push(element: any)
 	self[#self+1] = element
 end
 
-function BetterStack:pushMany(...)
+function BetterStack:pushMany(...): BetterStack
 	local args = #{...}
 	local arr = {...}
 	for i = 1, args do
@@ -15,33 +20,38 @@ function BetterStack:pushMany(...)
 	return self
 end
 
-function BetterStack:pop()
+function BetterStack:pop(): any
 	assert(#self > 0, "Attempt to pop value from empty stack!")
 	local output = self[#self]
 	self[#self] = nil
 	return output
 end
 
-function BetterStack:top()
+function BetterStack:top(): any
 	assert(#self > 0, "Attempt to use top() on an empty stack!")
-	local output = self[#self]
-	return output
+	return self[#self]
 end
 
-function BetterStack:bottom()
+function BetterStack:bottom(): any
 	assert(#self > 0, "Attempt to use bottom() on an empty stack!")
-	local output = self[1]
-	return output
+	return self[1]
 end
+
+function BetterStack:clone(): BetterStack
+	return table.move(self, 1, #self, 1, table.create(#self))
+end
+
+function BetterStack:bomb(): BetterStack
+	table.clear(self)
 function BetterStack:bomb()
 	self = {}
 	return self
 end
 
-function BetterStack:size()
+function BetterStack:size(): number
 	return #self
 end
-function BetterStack:cut(i)
+function BetterStack:cut(i): BetterStack
 	if i == 0 or i >= #self then
 		error("Wrong argument passed to cut()")
 	else
@@ -51,7 +61,7 @@ function BetterStack:cut(i)
 		return self
 	end
 end
-function BetterStack:pile(...)
+function BetterStack:pile(...): BetterStack
 	local args = {...}
 	for i = 1, #args do
 		for j = 1, #args[i] do
@@ -64,7 +74,7 @@ end
 function BetterStack:print()
 	print(self)
 end
-function BetterStack:find(val)
+function BetterStack:find(val): boolean
 	local ans = false
 	for i = 1, #self do
 		if self[i] == val then
@@ -74,7 +84,7 @@ function BetterStack:find(val)
 	end
 	return ans
 end
-function BetterStack:min()
+function BetterStack:min(): number
 	for i = 1, #self do
 		if typeof(self[i]) == "string" or typeof(self[i]) == "boolean" then
 			error("Attempt to use min() on string or boolean value")
@@ -88,7 +98,7 @@ function BetterStack:min()
 	end
 	return ans
 end
-function BetterStack:max()
+function BetterStack:max(): number
 	for i = 1, #self do
 		if typeof(self[i]) == "string" or typeof(self[i]) == "boolean" then
 			error("Attempt to use max() on string or boolean value")
@@ -102,7 +112,7 @@ function BetterStack:max()
 	end
 	return ans
 end
-function BetterStack:average()
+function BetterStack:average(): number
 	for i = 1, #self do
 		if typeof(self[i]) == "string" or typeof(self[i]) == "boolean" then
 			error("Attempt to use average() on string or boolean value")
@@ -114,21 +124,23 @@ function BetterStack:average()
 	end
 	return sum/#self
 end
+function BetterStack:sortStack()
+	
+end
+function BetterStack:mid(): any
+	local a = self[math.ceil(#self/2)]
+
 function BetterStack:mid()
 	local a = self[#self/2]
 	return a
 end
 function BetterStack:isEmpty()
-	if #self == 0 then
-		return true
-	else
-		return false
-	end
+	return next(self) == nil
 end
-function BetterStack:desc(str)
+function BetterStack:desc(str: string): string
 	return str
 end
-function BetterStack:based()
+function BetterStack:based(): string
 	local str = 0
 	local number = 0
 	local bool = 0
@@ -156,7 +168,7 @@ function BetterStack:based()
 		return "Multi Based"
 	end
 end
-function BetterStack:freq(val)
+function BetterStack:freq(val: any): number
 	local count = 0
 	for i = 1, #self do
 		if self[i] == val then
@@ -165,7 +177,7 @@ function BetterStack:freq(val)
 	end
 	return count
 end
-function BetterStack:hasNumber()
+function BetterStack:hasNumber(): boolean
 	for i = 1, #self do
 		if typeof(self[i]) == "number" then
 			return true
@@ -173,7 +185,7 @@ function BetterStack:hasNumber()
 	end
 	return false
 end
-function BetterStack:hasString()
+function BetterStack:hasString(): boolean
 	for i = 1, #self do
 		if typeof(self[i]) == "string" then
 			return true
@@ -181,7 +193,7 @@ function BetterStack:hasString()
 	end
 	return false
 end
-function BetterStack:hasBool()
+function BetterStack:hasBool(): boolean
 	for i = 1, #self do
 		if typeof(self[i]) == "boolean" then
 			return true
@@ -189,7 +201,7 @@ function BetterStack:hasBool()
 	end
 	return false
 end
-function BetterStack:toString()
+function BetterStack:toString(): Betterstack
 	for i = 1, #self do
 		self[i] = tostring(self[i])
 	end
