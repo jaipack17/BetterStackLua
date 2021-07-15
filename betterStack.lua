@@ -43,6 +43,8 @@ end
 
 function BetterStack:bomb(): BetterStack
 	table.clear(self)
+function BetterStack:bomb()
+	self = {}
 	return self
 end
 
@@ -127,6 +129,9 @@ function BetterStack:sortStack()
 end
 function BetterStack:mid(): any
 	local a = self[math.ceil(#self/2)]
+
+function BetterStack:mid()
+	local a = self[#self/2]
 	return a
 end
 function BetterStack:isEmpty()
